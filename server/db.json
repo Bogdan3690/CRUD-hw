@@ -1,0 +1,95 @@
+{
+  "$schema": "./node_modules/json-server/schema.json",
+  "posts": [
+    {
+      "id": "1",
+      "title": "a title",
+      "views": 100
+    },
+    {
+      "id": "2",
+      "title": "another title",
+      "views": 200
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "text": "a comment about post 1",
+      "postId": "1"
+    },
+    {
+      "id": "2",
+      "text": "another comment about post 1",
+      "postId": "1"
+    }
+  ],
+  "students": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "age": 20,
+      "email": "john.doe@example.com",
+      "phone": "555-1234"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "age": 21,
+      "email": "jane.smith@example.com",
+      "phone": "555-5678"
+    },
+    {
+      "id": "3",
+      "name": "Bob Johnson",
+      "age": 19,
+      "email": "bob.johnson@example.com",
+      "phone": "555-9012"
+    },
+    {
+      "id": "X5C5gP7"
+    },
+    {
+      "id": "g4iSc0f"
+    },
+    {
+      "id": "8kZfFfX"
+    },
+    {
+      "id": "wscmqmN"
+    },
+    {
+      "id": "TOlo1rR"
+    },
+    {
+      "id": "aANq3Bd"
+    },
+    {
+      "id": "uQNaws6"
+    },
+    {
+      "id": "gr9Iu6Z"
+    },
+    {
+      "id": "tSQI8eo"
+    },
+    {
+      "id": "QbDkH3r"
+    },
+    {
+      "name": "zczcxzzxczxczxcvzxczzcxzxzzxczczxzcxzxcxzcxzczcxcxxcxxczzxc",
+      "age": "7",
+      "phone": "17206364707",
+      "id": "3hKajg8"
+    },
+    {
+      "name": "zczcxzzxczxczxcvzxczzcxzxzzxczczxzcxzxcxzcxzczcxcxxcxxczzxc",
+      "age": "8",
+      "phone": "17206364707",
+      "id": "3uC-6sp"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
