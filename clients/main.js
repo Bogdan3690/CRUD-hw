@@ -2,6 +2,8 @@ const BASE_URL = "http://localhost:3000/"
 const list = document.querySelector(".students-list")
 const form = document.querySelector("#add-student-form")
 
+form.addEventListener("submit", onForm)
+
 
 function getStudents(params) {
     return fetch(`${BASE_URL}students`)
@@ -14,6 +16,9 @@ getStudents()
 .then((result) => renderStudents(result))
 
 function renderStudents(students) {
+
+    // list.innerHTML = "";
+
         const markup = students.map((item) => {
         return `<li data-id=${item.id}>
             <h2>${item.name}</h2>
@@ -25,6 +30,8 @@ function renderStudents(students) {
 
     list.insertAdjacentHTML("beforeend", markup)
 }
+
+//create
 
 function createStudent(student) {
     const options = {
@@ -38,8 +45,6 @@ function createStudent(student) {
     return fetch(`${BASE_URL}students`, options)
         .then(response => response.json());
 }
-
-form.addEventListener("submit", onForm)
 
 function onForm(ev) {
     ev.preventDefault()
@@ -62,3 +67,47 @@ createStudent(newStudent)
     })
     .catch((error) => console.log(error));
 }
+
+// delete
+
+function deletePostById(id) {
+    const options = {
+        method : "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+    return fetch(`${BASE_URL}students/${id}`, options)
+      .then(response => response.json())
+}
+
+// deletePostById('Z2d8tZI')
+// .then((result) => {console.log(result)})
+// .catch((error) => {console.log(error);
+// })
+
+// update
+
+const updatedStudent = {
+    name : "Update student's name"
+}
+
+function updateStudentById(updatedStudent, id) {
+    const options = {
+        method : "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body : JSON.stringify(updatedStudent)
+    }
+    return fetch(`${BASE_URL}students/${id}`, options)
+
+      .then(response => response.json())
+}
+
+// updateStudentById(updatedStudent, 3)
+// .then((result) => {console.log(result)})
+// .catch((error) => {console.log(error);
+// })
+
+
