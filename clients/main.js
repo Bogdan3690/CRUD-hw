@@ -5,13 +5,14 @@ const form = document.querySelector("#add-student-form");
 form.addEventListener("submit", onForm);
 list.addEventListener("click", onDelete);
 
-function getStudents(params) {
-  return fetch(`${BASE_URL}students`).then((result) => {
-    return result.json();
-  });
+async function getStudents(params) {
+  const response = await fetch(`${BASE_URL}students`);
+  return response.json();
 }
 
-getStudents().then((result) => renderStudents(result));
+getStudents()
+  .then((result) => renderStudents(result))
+  .catch((error) => console.log(error));
 
 function renderStudents(students) {
   // list.innerHTML = "";
@@ -32,7 +33,7 @@ function renderStudents(students) {
 
 //create
 
-function createStudent(student) {
+async function createStudent(student) {
   const options = {
     method: "POST",
     headers: {
@@ -40,13 +41,11 @@ function createStudent(student) {
     },
     body: JSON.stringify(student),
   };
-
-  return fetch(`${BASE_URL}students`, options).then((response) =>
-    response.json(),
-  );
+  const response = await fetch(`${BASE_URL}students`, options);
+  return response.json();
 }
 
-function onForm(ev) {
+async function onForm(ev) {
   ev.preventDefault();
   console.log(ev.target.elements);
   const form = ev.target;
@@ -59,21 +58,21 @@ function onForm(ev) {
     phone: phone.value,
   };
   console.log(newStudent);
+  try {
+    const result = await createStudent(newStudent);
+    const students = await getStudents();
+    list.innerHTML = "";
+    renderStudents(result);
 
-  createStudent(newStudent)
-    .then((result) => {
-      getStudents().then((result) => {
-        list.innerHTML = "";
-        renderStudents(result);
-      });
-      form.reset();
-    })
-    .catch((error) => console.log(error));
+    form.reset();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // delete
 
-function onDelete(ev) {
+async function onDelete(ev) {
   console.log(ev.target.nodeName);
   const btn = ev.target;
 
@@ -84,28 +83,25 @@ function onDelete(ev) {
   console.log(parent);
   const id = parent.dataset.id;
   console.log(id);
-  deletePostById(id)
-    .then((result) => {
-      console.log(result);
-      getStudents().then((result) => {
-            list.innerHTML = "";
-        renderStudents(result)});
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    const deleteStudent = await deletePostById(id)
+    const students = await getStudents()
+    list.innerHTML = "";
+        renderStudents(students);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-function deletePostById(id) {
+async function deletePostById(id) {
   const options = {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
   };
-  return fetch(`${BASE_URL}students/${id}`, options).then((response) =>
-    response.json(),
-  );
+  const response = await fetch(`${BASE_URL}students/${id}`, options)
+  return response.json()
 }
 
 // update
